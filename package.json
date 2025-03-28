@@ -6,15 +6,18 @@
   "type": "module",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder",
+    "clean": "if exist dist rmdir /s /q dist",
+    "prebuild": "npm run clean",
+    "build": "npx electron-builder",
+    "postbuild": "echo Build completed successfully!",
     "web:build": "echo Creating web-dist directory... && if not exist web-dist mkdir web-dist && echo Copying files... && copy /Y index.html web-dist\\ && copy /Y config-example.json web-dist\\config.json && xcopy /E /I /Y img web-dist\\img && xcopy /E /I /Y sound web-dist\\sound && xcopy /E /I /Y styles web-dist\\styles && xcopy /E /I /Y font web-dist\\font && echo Copying JS files... && copy /Y *.js web-dist\\",
     "web:deploy": "firebase deploy --only hosting"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^28.1.0",
-    "electron-builder": "^24.9.1"
+    "electron": "28.2.0",
+    "electron-builder": "24.9.1"
   },
   "build": {
     "appId": "com.chrome_t_rex.app",
@@ -24,27 +27,25 @@
     },
     "win": {
       "target": "nsis",
-      "icon": "img/icon.ico"
+      "icon": "./img/trex/favicon.png"
     },
     "mac": {
       "target": "dmg",
-      "icon": "img/icon.icns"
+      "icon": "./img/trex/favicon.png"
     },
     "linux": {
       "target": "AppImage",
-      "icon": "img/icon.png"
+      "icon": "./img/trex/favicon.png"
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "Chrome T-Rex Game"
+      "shortcutName": "Chrome T-Rex"
     }
   },
   "dependencies": {
-    "dotenv": "^16.3.1",
-    "firebase": "^10.7.1",
-    "firebase-tools": "^14.0.0"
+    "firebase": "^10.8.0"
   }
 }
