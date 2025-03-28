@@ -5,6 +5,16 @@ A modern implementation of the classic Chrome offline dinosaur game, built with 
 ## Live Demo 🎮
 [Play the game](https://dinosaur-game-7f7ee-dcb30.web.app/)
 
+#### Or download Pre-built Executable, built with Electron
+- [![Dropbox](https://img.shields.io/badge/Dropbox-0052CC?style=for-the-badge&logo=dropbox&logoColor=white)](https://www.dropbox.com/scl/fi/hcctkk4313ppb22xk4f5k/Chrome-T-Rex-Setup-1.0.0.zip?rlkey=3yjfb42ggib6jl3w9j8o8d2mo&st=2vfydlpw&dl=0)
+- [![Google Drive](https://img.shields.io/badge/Google_Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/1I6TnKyLctPnano7lLowwQVEdNjuGxeNR/view?usp=drive_link)
+
+<div align="center">
+
+> 🔒 Both executables have been verified virus-free by VirusTotal. Click the VirusTotal badge to view the full scan report.
+
+</div>
+
 ## Overview 🎮
 
 This project recreates the iconic Chrome dinosaur game that appears when you're offline. While maintaining the core gameplay, it introduces several improvements and additional features to enhance the gaming experience.
@@ -62,7 +72,7 @@ ArrowUp    → Stand ⬆️
 ### Web Version 🌐
 1. Clone the repository:
    ```bash
-   git clone https://github.com/AitorSantaeugenia/chrome_t_rex.git
+   git clone https://github.com/AitorSantaeugenia/chrome-t-rex-game
    ```
 2. Configure environment:
    - Copy `.env.example` to `.env`
@@ -101,8 +111,8 @@ ArrowUp    → Stand ⬆️
 ### Desktop Version 💻
 
 #### Option 1: Download Pre-built Executable
-- [![Dropbox](https://img.shields.io/badge/Dropbox-0052CC?style=for-the-badge&logo=dropbox&logoColor=white)](https://www.dropbox.com/s/your-link/chrome_t_rex.exe)
-- [![Google Drive](https://img.shields.io/badge/Google_Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/uc?export=download&id=your-file-id)
+- [![Dropbox](https://img.shields.io/badge/Dropbox-0052CC?style=for-the-badge&logo=dropbox&logoColor=white)](https://www.dropbox.com/scl/fi/hcctkk4313ppb22xk4f5k/Chrome-T-Rex-Setup-1.0.0.zip?rlkey=3yjfb42ggib6jl3w9j8o8d2mo&st=2vfydlpw&dl=0)
+- [![Google Drive](https://img.shields.io/badge/Google_Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/1I6TnKyLctPnano7lLowwQVEdNjuGxeNR/view?usp=drive_link)
 
 <div align="center">
 
@@ -113,7 +123,7 @@ ArrowUp    → Stand ⬆️
 #### Option 2: Build Locally
 1. Clone the repository:
    ```bash
-   git clone https://github.com/AitorSantaeugenia/chrome_t_rex.git
+   git clone https://github.com/AitorSantaeugenia/chrome-t-rex-game
    cd chrome_t_rex
    ```
 2. Install dependencies:
@@ -160,9 +170,6 @@ Watch out for falling meteorites! These special obstacles add an extra layer of 
 <br><br>
 ![Meteorite Gameplay](img/menu/meteoritesGameplay.gif)
 
-### Active Gameplay 🎯
-![In play game](https://dinosaur-game-7f7ee-dcb30.web.app/)
-
 ### Day/Night Cycle 🌓
 ![Midnight time](https://user-images.githubusercontent.com/14861253/182008097-1cb9a02f-1789-43be-a338-cf1da8076916.gif)
 
@@ -192,7 +199,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 ## Contact 📧
 
 For suggestions, bug reports, or feature requests:
-- Create an issue on [GitHub](https://github.com/AitorSantaeugenia/chrome_t_rex/issues)
+- Create an issue on [GitHub](https://github.com/AitorSantaeugenia/chrome-t-rex-game/issues)
 - Email: aitorsantaeugenia@gmail.com
 
 ## License 📄
