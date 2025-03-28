@@ -1,0 +1,653 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#myCanvas{
+  font-family: P2S;
+}
+
+@font-face {
+  font-family: P2S;
+  src: url(./../font/p2s.ttf);
+}
+
+
+
+#restartButton{
+width: 62px;
+height: 54px;
+margin: auto;
+text-align: center; 
+cursor:pointer;
+}
+
+#restartButtonContainer{
+    margin-top: 1.5rem;
+}
+
+.noDrag{
+-webkit-user-drag: none;
+-khtml-user-drag: none;
+-moz-user-drag: none;
+-o-user-drag: none;
+}
+
+.backgroundImage{
+background-image: url(./../img/background.png);
+width: 100vw;
+height: 100vh;
+background-size: cover;
+background-position: 0% 10%;
+background-repeat: no-repeat;
+}
+
+.startingText {
+font-family: 'Press Start 2P', cursive;
+font-size: 24px;
+cursor: pointer;
+margin: 0 auto;
+padding: 20px;
+color: white;
+text-transform: uppercase;
+letter-spacing: 2px;
+transition: all 0.3s ease;
+border: 1px solid #000000;
+border-radius: 5px;
+background-color: #535353;
+}
+
+.startingText:hover {
+background-color: white;
+color: #535353;
+transform: scale(1.05);
+border-color: #535353;
+}
+
+.startingButton{
+width:100vw;
+display:flex;
+flex-direction: column;
+justify-content:center;
+top:50px;
+position:absolute;
+
+}
+
+.ulDivControls > ul {
+font-family: 'Press Start 2P', cursive;
+font-size: 13px;
+width: 100%;
+justify-content: center;
+text-align: center;
+list-style: none;
+padding: 0;
+color: #535353;
+line-height: 2;
+margin: 0px;
+}
+
+.form-container p{
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+}
+
+.ulDivControls > ul li {
+margin: 10px 0;
+transition: all 0.3s ease;
+}
+
+.ulDivControls > ul li:hover {
+color: #3a3a3a;
+transform: translateX(5px);
+}
+
+.centerText {
+text-align: center;
+font-family: 'Press Start 2P', cursive;
+color: #535353;
+text-transform: uppercase;
+letter-spacing: 2px;
+}
+
+.test {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 90%; /* Ancho por defecto para móviles */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto !important;
+    padding: 10px 0px;
+    max-height: 70vh;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    overflow-x: hidden;
+    cursor: pointer;
+}
+
+/* Tablet (768px y superior) */
+@media screen and (min-width: 768px) {
+    .test {
+        width: 70%;
+    }
+}
+
+/* Laptop (1024px y superior) */
+@media screen and (min-width: 1024px) {
+    .test {
+        width: 50%;
+    }
+}
+
+/* Pantallas grandes (1440px y superior) */
+@media screen and (min-width: 1440px) {
+    .test {
+        width: 40%;
+    }
+}
+
+.game-over-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    z-index: 1000;
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin: 1rem 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px solid #000;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+}
+
+.form-container button {
+    background-color: #000;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+}
+
+.form-container button:hover {
+    background-color: #333;
+}
+
+.form-container h2{
+    font-family: 'Press Start 2P', cursive;
+    color: #ff4444;
+}
+
+.leaderboard {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.leaderboard h3 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    position: sticky;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 0.5rem 0;
+    z-index: 1;
+    text-align: center;
+    color: #ff4444;
+}
+
+.leaderboard-table {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.leaderboard-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+}
+
+.leaderboard-table th {
+    position: sticky;
+    top: 0;
+    background-color: #000;
+    color: white;
+    z-index: 1;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid #000;
+}
+
+.leaderboard-table tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Estilo para la barra de desplazamiento */
+.leaderboard-table::-webkit-scrollbar {
+    width: 8px;
+}
+
+.leaderboard-table::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.leaderboard-table::-webkit-scrollbar-thumb {
+    background: #535353;
+    border-radius: 4px;
+}
+
+.leaderboard-table::-webkit-scrollbar-thumb:hover {
+    background: #3a3a3a;
+}
+
+/* Estilos para el modal de error */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.modal-content h3 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #ff4444;
+}
+
+.modal-content p {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.modal-content button {
+    background-color: #000;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    transition: background-color 0.3s;
+}
+
+.modal-content button:hover {
+    background-color: #333;
+}
+
+/* Estilos para la paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+.pagination-btn {
+    background-color: #000;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    transition: background-color 0.3s;
+}
+
+.pagination-btn:hover {
+    background-color: #333;
+}
+
+.pagination-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#pageInfo {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    color: #535353;
+}
+
+/* Estilos para el banner */
+.banner {
+    position: relative;
+    background-color: #535353;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+#banner-content-2{
+    position: relative;
+    background-color: #535353;
+    color: white;
+    padding: 10px 20px;
+    display: flex
+;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
+    z-index: 1000;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+#banner-content-2 a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+}
+
+#banner-content-2 a:hover {
+    color: #ffd700;
+}
+
+#banner-content-2 .github-icon {
+    width: 20px;
+    height: 20px;
+}
+
+#banner-content-2 .close-button {
+    background: none;
+    border: none;
+    color: rgb(145, 0, 0);
+    cursor: pointer;
+    font-size: 20px;
+    padding: 0 10px;
+    transition: color 0.3s ease;
+}
+
+#banner-content-2 .close-button:hover {
+    color: #ffd700;
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.banner a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+}
+
+.banner a:hover {
+    color: #ffd700;
+}
+
+.banner .github-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.banner .close-button {
+    background: none;
+    border: none;
+    color: rgb(145, 0, 0);
+    cursor: pointer;
+    font-size: 20px;
+    padding: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.banner .close-button:hover {
+    color: #ffd700;
+}
+
+/* Ajustar el contenedor principal para el banner */
+.startingButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.container {
+    margin-top: 40px; /* Añadir espacio para el banner */
+}
+
+/* Estilos específicos para el alert banner */
+.alert-banner {
+    top: 50%;
+    left: auto;
+    /* position: absolute; */
+    background-color: #ff4444;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 2000;
+
+    text-align: center;
+    /* animation: modalIn 0.3s ease-out; */
+    position: absolute;
+    background-color: #535353;
+    color: white;
+    /* padding: 10px 20px; */
+    /* display: flex
+; */
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* margin-bottom: 20px; */
+    border-radius: 5px;
+}
+
+#alertBanner {
+    min-width: 100%;
+    top: 40%;
+    left: auto;
+    /* position: absolute; */
+    background-color: #ff4444;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 2000;
+    text-align: center;
+    /* animation: modalIn 0.3s ease-out; */
+    position: absolute;
+    background-color: #535353;
+    color: white;
+    /* padding: 10px 20px; */
+    justify-content: center;
+    align-items: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* margin-bottom: 20px; */
+    border-radius: 5px;
+}
+
+.alert-banner .banner-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.alert-banner .close-button {
+    background: none;
+    border: none;
+    color: rgb(145, 0, 0);
+    cursor: pointer;
+    font-size: 24px;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.alert-banner .close-button:hover {
+    color: #ffd700;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes modalIn {
+    from {
+        transform: translate(-50%, -60%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+
+/* Overlay para el fondo oscuro */
+.alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1999;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+} 
+
+#alertBanner.hidden {
+    display: none;
+} 
+
+.foceDisplay{
+    display: flex !important;
+}
+.learn-more-btn {
+    background: none;
+    border: 2px solid white;
+    color: white;
+    padding: 5px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    transition: all 0.3s ease;
+}
+
+.learn-more-btn:hover {
+    background-color: white;
+    color: #535353;
+}
+
+.banner-content-2 {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 10px;
+    line-height: 1.4;
+    text-align: center;
+}
+
+#closeBannerButton{  
+    background: none;
+    border: none;
+    color: rgb(145, 0, 0);
+    cursor: pointer;
+    font-size: 20px;
+    padding: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.banner-content-2 p {
+    margin: 0;
+    opacity: 0.9;
+} 
+
+.highlight-red {
+    color: #ff4444;
+    font-weight: bold;
+}
