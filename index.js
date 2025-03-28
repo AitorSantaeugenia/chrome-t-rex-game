@@ -40,25 +40,7 @@ document.getElementById("scoreForm").addEventListener("submit", async (e) => {
     }
 
     try {
-        // Primero, intentar enviar la notificación por correo
-         ('Intentando enviar notificación por correo...');
-        if (window.electronAPI) {
-             ('window.electronAPI está disponible, llamando a sendScoreNotification...');
-            const emailResult = await window.electronAPI.sendScoreNotification({ name, score, timestamp: Date.now() });
-             ('Resultado del envío de email:', emailResult);
-            
-            if (!emailResult) {
-                 ('El envío de email falló');
-                showError('Error al enviar la notificación por correo. Por favor, intenta de nuevo.');
-                return;
-            }
-             ('Email enviado exitosamente');
-        } else {
-             ('window.electronAPI no está disponible');
-        }
-
-        // Si el correo se envió exitosamente, proceder con el guardado en la base de datos
-         ('Procediendo a guardar en la base de datos...');
+        // Guardar en la base de datos
         const saved = await Database.saveScore(name, score);
 
         if (!saved) {
@@ -66,8 +48,6 @@ document.getElementById("scoreForm").addEventListener("submit", async (e) => {
             return;
         }
 
-         ('Score saved successfully!');
-        
         // Actualizar la tabla de puntuaciones
         await Database.updateLeaderboard();
         
@@ -75,7 +55,7 @@ document.getElementById("scoreForm").addEventListener("submit", async (e) => {
         document.getElementById("playerName").value = "";
         
         // Mostrar mensaje de éxito
-        showError('¡Score saved successfully!!');
+        showError('¡Score saved successfully!');
         
         // Forzar la recarga de la página después de un breve retraso
         setTimeout(() => {
