@@ -11,7 +11,7 @@ A modern implementation of the classic Chrome offline dinosaur game, built with 
 
 <div align="center">
 
-> 🔒 Both executables have been verified virus-free by VirusTotal. Click the VirusTotal badge to view the full scan report.
+> 🔒 Both executables have been verified virus-free by VirusTotal.
 
 </div>
 
