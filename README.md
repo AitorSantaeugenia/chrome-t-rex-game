@@ -6,8 +6,8 @@ A modern implementation of the classic Chrome offline dinosaur game, built with 
 [Play the game](https://dinosaur-game-7f7ee-dcb30.web.app/)
 
 #### Or download Pre-built Executable, built with Electron
-- [![Dropbox](https://img.shields.io/badge/Dropbox-0052CC?style=for-the-badge&logo=dropbox&logoColor=white)](https://www.dropbox.com/scl/fi/hcctkk4313ppb22xk4f5k/Chrome-T-Rex-Setup-1.0.0.zip?rlkey=3yjfb42ggib6jl3w9j8o8d2mo&st=2vfydlpw&dl=0)
-- [![Google Drive](https://img.shields.io/badge/Google_Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/1I6TnKyLctPnano7lLowwQVEdNjuGxeNR/view?usp=drive_link)
+- [![Dropbox](https://img.shields.io/badge/Dropbox-0052CC?style=for-the-badge&logo=dropbox&logoColor=white)](https://www.dropbox.com/scl/fi/iwdvn7dwsvbk7b8gcqiek/Chrome-T-Rex-Setup-1.0.0.zip?rlkey=pbcd0rvxdpcbvyii959sv1cdd&st=t5uimbpl&dl=0)
+- [![Google Drive](https://img.shields.io/badge/Google_Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/1SuCfyyUWQJYVspu6RIjSCgoVGKnvDYDJ/view?usp=sharing)
 
 <div align="center">
 
@@ -111,8 +111,8 @@ ArrowUp    → Stand ⬆️
 ### Desktop Version 💻
 
 #### Option 1: Download Pre-built Executable
-- [![Dropbox](https://img.shields.io/badge/Dropbox-0052CC?style=for-the-badge&logo=dropbox&logoColor=white)](https://www.dropbox.com/scl/fi/hcctkk4313ppb22xk4f5k/Chrome-T-Rex-Setup-1.0.0.zip?rlkey=3yjfb42ggib6jl3w9j8o8d2mo&st=2vfydlpw&dl=0)
-- [![Google Drive](https://img.shields.io/badge/Google_Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/1I6TnKyLctPnano7lLowwQVEdNjuGxeNR/view?usp=drive_link)
+- [![Dropbox](https://img.shields.io/badge/Dropbox-0052CC?style=for-the-badge&logo=dropbox&logoColor=white)](https://www.dropbox.com/scl/fi/iwdvn7dwsvbk7b8gcqiek/Chrome-T-Rex-Setup-1.0.0.zip?rlkey=pbcd0rvxdpcbvyii959sv1cdd&st=t5uimbpl&dl=0)
+- [![Google Drive](https://img.shields.io/badge/Google_Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/1SuCfyyUWQJYVspu6RIjSCgoVGKnvDYDJ/view?usp=sharing)
 
 <div align="center">
 
