@@ -1,8 +1,32 @@
-import { db, collection, addDoc, getDocs, orderBy, limit, query, where, startAfter, deleteDoc } from './firebase-config.js';
-import { showError } from './index.js';
+import { db, collection, addDoc, getDocs, orderBy, limit, query, where, startAfter, deleteDoc, runTransaction, doc } from './firebase-config.js';
 
 export const Database = {
-    // Guardar una nueva puntuación
+    // Función auxiliar para mostrar mensajes
+    showMessage(message) {
+        const alertElement = document.getElementById('alertMessage');
+        const alertBanner = document.getElementById('alertBanner');
+        const alertOverlay = document.getElementById('alertOverlay');
+        if (alertElement) {
+            alertElement.classList.remove('hidden');
+            alertBanner.classList.remove('hidden');
+            alertOverlay.classList.remove('hidden');
+            alertElement.textContent = message;
+            alertElement.style.display = 'block !important';
+            alertElement.style.visibility = 'visible !important';
+            alertElement.style.opacity = '1';
+            alertOverlay.style.display = 'block !important';
+            alertOverlay.style.visibility = 'visible !important';
+            alertOverlay.style.opacity = '1';
+            alertBanner.style.display = 'block !important';
+            alertBanner.style.visibility = 'visible !important';
+            alertBanner.style.opacity = '1';
+            console.log('Message displayed:', message);
+        } else {
+            console.error('alertMessage element not found in the DOM');
+        }
+    },
+
+    // Verificar si el nombre ya existe
     async checkNameExists(name) {
         try {
             const scoresRef = collection(db, "scores");
@@ -18,7 +42,7 @@ export const Database = {
     // Verificar límite de puntuaciones por usuario
     async checkUserScoreLimit(name) {
         try {
-             ('Verificando límite de puntuaciones para:', name);
+            console.log('Checking score limit for:', name);
             const scoresRef = collection(db, 'scores');
             const q = query(
                 scoresRef,
@@ -34,12 +58,12 @@ export const Database = {
                 const oldestScore = userScores[userScores.length - 1];
                 const oldestScoreDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
                 await deleteDoc(oldestScoreDoc.ref);
-                 ('Puntuación más antigua eliminada para mantener el límite');
+                console.log('Oldest score deleted to maintain limit');
             }
             
             return true;
         } catch (error) {
-            console.error('Error verificando límite de puntuaciones:', error);
+            console.error('Error checking score limit:', error);
             return false;
         }
     },
@@ -47,49 +71,63 @@ export const Database = {
     // Guardar una nueva puntuación
     async saveScore(name, score) {
         try {
-             ('Intentando guardar puntuación:', { name, score });
+            console.log('Attempting to save score:', { name, score });
             
             // Validaciones básicas
             if (!name || typeof name !== 'string' || name.trim().length === 0) {
                 console.error('Invalid name');
-                showError('Please enter a valid name');
+                this.showMessage('Please enter a valid name');
                 return false;
             }
             
             if (!score || typeof score !== 'number' || score <= 0) {
                 console.error('Invalid score');
-                showError('Please enter a valid score');
+                this.showMessage('Please enter a valid score');
                 return false;
             }
 
             // Verificar si el nombre ya existe
             const nameExists = await this.checkNameExists(name);
             if (nameExists) {
-                 ('El nombre ya existe en la base de datos');
-                showError('You reached the daily limit of 2 scores. Please wait 24 hours before trying again.');
+                console.log('Name already exists in database');
+                this.showMessage('This name is already registered. Please use a different name.');
                 return false;
             }
 
-            // Verificar límite diario
+            // Verificar límite diario global
             const attempts = await this.getAttemptsInLastHour(name);
+            console.log('Current attempts count:', attempts);
             if (attempts >= 2) {
-                 ('Límite diario alcanzado para:', name);
-                showError('Has alcanzado el límite de 2 puntuaciones por día. Por favor, espera 24 horas antes de intentar de nuevo.');
+                console.log('Daily global limit reached');
+                this.showMessage('You have reached the global limit of 2 scores per day. Please wait 24 hours before trying again.');
                 return false;
             }
 
             // Guardar la nueva puntuación
-             ('Guardando puntuación en Firestore...');
+            console.log('Data to send to Firestore:', {
+                name: name.trim(),
+                score: score,
+                timestamp: Date.now()
+            });
+            
+            // Primero registrar el intento
+            await addDoc(collection(db, 'attempts'), {
+                name: name.trim(),
+                timestamp: Date.now()
+            });
+            
+            // Luego guardar la puntuación
             const docRef = await addDoc(collection(db, 'scores'), {
                 name: name.trim(),
                 score: score,
                 timestamp: Date.now()
             });
 
-             ('Score saved successfully! con ID:', docRef.id);
+            console.log('Score saved successfully! with ID:', docRef.id);
+            this.showMessage('Score saved successfully!');
             return true;
         } catch (error) {
-            console.error('Error detallado al guardar puntuación:', {
+            console.error('Detailed error saving score:', {
                 message: error.message,
                 code: error.code,
                 details: error.details,
@@ -98,9 +136,9 @@ export const Database = {
             
             // Manejar el error de límite diario
             if (error.code === 'permission-denied') {
-                showError('Has alcanzado el límite de 2 puntuaciones por día. Por favor, espera 24 horas antes de intentar de nuevo.');
+                this.showMessage('You have reached the global limit of 2 scores per day. Please wait 24 hours before trying again.');
             } else {
-                showError('Error saving score. Please try again.');
+                this.showMessage('Error saving score. Please try again.');
             }
             
             return false;
@@ -120,7 +158,7 @@ export const Database = {
     // Obtener la última puntuación del jugador
     async getLastScore(name) {
         try {
-             ('Obteniendo última puntuación para:', name);
+            console.log('Getting last score for:', name);
             const scoresRef = collection(db, 'scores');
             const q = query(
                 scoresRef,
@@ -136,10 +174,10 @@ export const Database = {
                 }));
                 scores.sort((a, b) => b.timestamp - a.timestamp);
                 const lastScore = scores[0];
-                 ('Última puntuación encontrada:', lastScore);
+                console.log('Last score found:', lastScore);
                 return lastScore;
             }
-             ('No se encontraron puntuaciones anteriores');
+            console.log('No previous scores found');
             return null;
         } catch (error) {
             console.error('Error getting last score:', error);
@@ -151,17 +189,17 @@ export const Database = {
     async getAttemptsInLastHour(name) {
         try {
             const oneDayAgo = Date.now() - (24 * 60 * 60 * 1000); // 24 horas en milisegundos
-             ('Verificando intentos para:', name, 'desde:', new Date(oneDayAgo).toISOString());
+            console.log('Checking total attempts since:', new Date(oneDayAgo).toISOString());
             
+            const attemptsRef = collection(db, 'attempts');
             const q = query(
-                collection(db, 'scores'),
-                where('name', '==', name),
+                attemptsRef,
                 where('timestamp', '>=', oneDayAgo)
             );
             
             const querySnapshot = await getDocs(q);
             const count = querySnapshot.size;
-             ('Número de intentos encontrados:', count);
+            console.log('Total number of attempts in the last 24 hours:', count);
             
             return count;
         } catch (error) {
@@ -270,7 +308,7 @@ export const Database = {
             });
             
             // Actualizar la información de la página
-            pageInfo.textContent = `Página ${page} de ${result.totalPages}`;
+            pageInfo.textContent = `Page ${page} of ${result.totalPages}`;
             
             // Actualizar el estado de los botones
             prevButton.disabled = page === 1;
@@ -286,6 +324,7 @@ export const Database = {
             
         } catch (error) {
             console.error("Error updating leaderboard:", error);
+            this.showMessage('Error loading leaderboard. Please try again.');
             this.isNavigating = false;
         }
     },
