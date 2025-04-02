@@ -35,7 +35,7 @@ document.getElementById("scoreForm").addEventListener("submit", async (e) => {
     const score = parseInt(Game.score);
     
     if (!name || isNaN(score)) {
-        showError('Por favor, ingresa un nombre y una puntuación válida');
+        showError('Please enter a valid name and score');
         return;
     }
 
@@ -43,27 +43,20 @@ document.getElementById("scoreForm").addEventListener("submit", async (e) => {
         // Guardar en la base de datos
         const saved = await Database.saveScore(name, score);
 
-        if (!saved) {
-            showError('Error saving score. Please try again.');
-            return;
+        if (saved) {
+            // Actualizar la tabla de puntuaciones
+            await Database.updateLeaderboard();
+            
+            // Limpiar el formulario
+            document.getElementById("playerName").value = "";
+            
+            // Forzar la recarga de la página después de un breve retraso
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
         }
-
-        // Actualizar la tabla de puntuaciones
-        await Database.updateLeaderboard();
-        
-        // Limpiar el formulario
-        document.getElementById("playerName").value = "";
-        
-        // Mostrar mensaje de éxito
-        showError('¡Score saved successfully!');
-        
-        // Forzar la recarga de la página después de un breve retraso
-        setTimeout(() => {
-            window.location.reload();
-        }, 1000);
     } catch (error) {
-        console.error('Error al guardar la puntuación:', error);
-        showError('Error saving score. Please try again.');
+        console.error('Error saving score:', error);
     }
 });
 
@@ -112,11 +105,41 @@ export function showError(message) {
     const alertOverlay = document.getElementById('alertOverlay');
     const alertMessage = document.getElementById('alertMessage');
     
-    alertMessage.textContent = message;
-    alertOverlay.classList.remove('hidden');
-    alertBanner.classList.add('foceDisplay');
-    alertBanner.style.display = 'flex !important';
+    if (!alertBanner || !alertOverlay || !alertMessage) {
+        console.error('Alert elements not found:', {
+            alertBanner: !alertBanner,
+            alertOverlay: !alertOverlay,
+            alertMessage: !alertMessage
+        });
+        return;
+    }
+    
+    // Asegurarse de que el banner sea visible
+    alertBanner.style.display = 'flex';
+    alertBanner.style.visibility = 'visible';
+    alertBanner.style.opacity = '1';
+    alertBanner.style.zIndex = '1000';
     alertBanner.classList.remove('hidden');
+    alertBanner.style.position = 'fixed';
+    alertBanner.style.top = '20px';
+    alertBanner.style.left = '50%';
+    alertBanner.style.transform = 'translateX(-50%)';
+    
+    // Asegurarse de que el mensaje sea visible
+    alertMessage.style.display = 'block';
+    alertMessage.style.visibility = 'visible';
+    alertMessage.style.opacity = '1';
+    alertMessage.classList.remove('hidden');
+    alertMessage.textContent = message;
+    
+    // Asegurarse de que el overlay sea visible
+    alertOverlay.style.display = 'block';
+    alertOverlay.style.visibility = 'visible';
+    alertOverlay.style.opacity = '1';
+    alertOverlay.classList.remove('hidden');
+    
+    // Forzar un reflow para asegurar que los cambios se apliquen
+    alertBanner.offsetHeight;
     
     // Ocultar automáticamente después de 5 segundos
     setTimeout(() => {
@@ -128,9 +151,21 @@ export function showError(message) {
 export function closeAlert() {
     const alertBanner = document.getElementById('alertBanner');
     const alertOverlay = document.getElementById('alertOverlay');
+    const alertMessage = document.getElementById('alertMessage');
+    
+    if (!alertBanner || !alertOverlay || !alertMessage) {
+        console.error('Alert elements not found when closing');
+        return;
+    }
+    
+    alertMessage.style.opacity = '0';
+    alertMessage.classList.add('hidden');
+    
+    alertBanner.style.opacity = '0';
     alertBanner.classList.add('hidden');
+    
+    alertOverlay.style.opacity = '0';
     alertOverlay.classList.add('hidden');
-    alertBanner.classList.remove('foceDisplay');
 }
 
 // Función para mostrar/ocultar información adicional
@@ -142,4 +177,4 @@ export function toggleInfo() {
 // Hacer las funciones disponibles globalmente
 window.showError = showError;
 window.closeAlert = closeAlert;
-window.toggleInfo = toggleInfo;
+window.toggleInfo = toggleInfo; 
