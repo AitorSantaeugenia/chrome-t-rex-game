@@ -10,7 +10,7 @@
     "prebuild": "npm run clean",
     "build": "npx electron-builder",
     "postbuild": "echo Build completed successfully!",
-    "web:build": "echo Creating web-dist directory... && if not exist web-dist mkdir web-dist && echo Copying files... && copy /Y index.html web-dist\\ && copy /Y config-example.json web-dist\\config.json && xcopy /E /I /Y img web-dist\\img && xcopy /E /I /Y sound web-dist\\sound && xcopy /E /I /Y styles web-dist\\styles && xcopy /E /I /Y font web-dist\\font && echo Copying JS files... && copy /Y *.js web-dist\\",
+    "web:build": "echo Creating web-dist directory... && if not exist web-dist mkdir web-dist && echo Copying files... && copy /Y index.html web-dist\\ && copy /Y config-example.json web-dist\\config.json && copy /Y firebase-config.js web-dist\\ && copy /Y config.js web-dist\\ && xcopy /E /I /Y img web-dist\\img && xcopy /E /I /Y sound web-dist\\sound && xcopy /E /I /Y styles web-dist\\styles && xcopy /E /I /Y font web-dist\\font && echo Copying JS files... && copy /Y *.js web-dist\\",
     "web:deploy": "firebase deploy --only hosting"
   },
   "author": "",
