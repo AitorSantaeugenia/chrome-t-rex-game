@@ -2,6 +2,8 @@
 
 A modern implementation of the classic Chrome offline dinosaur game, built with vanilla JavaScript and HTML5 Canvas. Experience the nostalgia of the original game with enhanced features and improved gameplay mechanics.
 
+![Chrome T-Rex](https://i.imgur.com/z6LK94w.png)
+
 ## Live Demo 🎮
 [Play the game](https://dinosaur-game-7f7ee-dcb30.web.app/)
 
